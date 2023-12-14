@@ -59,9 +59,10 @@ aarch64)
 	tcg_accel="-cpu cortex-a72 -machine virt,accel=tcg"
 	;;
 ppc64le)
-	qemu="qemu-system-ppc64le"
+	qemu="qemu-system-ppc64"
 	console="ttyS0"
 	smp=$(nproc)
+	kvm_accel="-enable-kvm"
 	tcg_accel="-machine accel=tcg"
 	;;
 
@@ -71,7 +72,7 @@ ppc64le)
 	;;
 esac
 
-if kvm-ok ; then
+if kvm-ok && [ "$ARCH" != "ppc64le" ]; then
   accel=$kvm_accel
 else
   accel=$tcg_accel

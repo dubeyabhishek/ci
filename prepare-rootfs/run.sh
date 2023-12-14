@@ -197,6 +197,7 @@ cache_urls() {
 		# those files can be downloaded.
 		declare -gA URLS
 		while IFS=$'\t' read -r name url; do
+			echo "==>" "$name" "$url"
 			URLS["$name"]="$url"
 		done < <(cat "${GITHUB_ACTION_PATH}/../INDEX")
 	fi
@@ -343,6 +344,9 @@ else
 		tmp=
 	fi
 fi
+echo "maggi 2 ==>"
+echo $vmlinuz
+file vmlinuz
 cp "$vmlinuz" "$GITHUB_WORKSPACE"/vmlinuz
 
 # Mount and set up the rootfs image. Use a persistent guestfish session in
